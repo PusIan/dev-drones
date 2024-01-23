@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+
+  drones-server:
+    build: drones-server/
+    ports:
+      - "9090:9090"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - DB_URL=jdbc:h2:mem:db
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - SERVICE_PORT=9090
+
+  drones-checker:
+    build: drones-checker/
+    ports:
+      - "9091:9091"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - DB_URL=jdbc:h2:mem:db
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DRONE_SERVICE_URL=http://drones-server:9090
+      - CRON=0 * * * * *
+      - SERVICE_PORT=9091
+

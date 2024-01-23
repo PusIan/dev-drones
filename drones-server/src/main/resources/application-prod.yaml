@@ -1,0 +1,35 @@
+server:
+    port: ${SERVICE_PORT}
+    error:
+        include-message: always
+spring:
+    datasource:
+        url: ${DB_URL}
+        username: ${DB_USER}
+        password: ${DB_PASSWORD}
+        driverClassName: org.h2.Driver
+    jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+        hibernate:
+            ddl-auto: update
+        defer-datasource-initialization: true
+    h2:
+        console:
+            path: /h2-console
+            settings.trace: false
+            settings.web-allow-others: true
+            enabled: true
+    sql:
+        init:
+            mode: always
+    mvc:
+        log-request-details: true
+api-errors:
+    add-stack-traces: false
+logging:
+    level:
+        org:
+            springframework:
+                web:
+                    servlet:
+                        DispatcherServlet: debug
